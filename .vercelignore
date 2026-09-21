@@ -5,7 +5,9 @@ screenshots
 .tmp
 .git
 node_modules
-*.onnx
 *.glb
+dist-packages
+.desktop-dist
+desktop/www
 AGENTS.md
 AGENTS.project.md
