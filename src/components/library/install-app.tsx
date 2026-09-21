@@ -1,8 +1,8 @@
 import { Download } from "lucide-react";
 import { toast } from "sonner";
 
-const RELEASE_ZIP =
-  "https://github.com/villeladante374-pixel/dove-nova-tundra-stone/releases/latest/download/BookClub-Windows.zip";
+const SOURCE_ZIP =
+  "https://github.com/villeladante374-pixel/dove-nova-tundra-stone/archive/refs/heads/main.zip";
 
 export function bootPwa() {
   if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
@@ -12,13 +12,13 @@ export function bootPwa() {
 export function InstallAppButton() {
   function download() {
     const a = document.createElement("a");
-    a.href = RELEASE_ZIP;
+    a.href = SOURCE_ZIP;
     a.rel = "noopener";
     a.target = "_blank";
     document.body.append(a);
     a.click();
     a.remove();
-    toast.success("Descargando el instalador de Windows…");
+    toast.success("Descargando el código de Book Club");
   }
 
   return (
