@@ -542,17 +542,23 @@ export function BookReader({ book }: { book: BookRecord }) {
       };
 
       if (book.kind === "manuscript") {
-        const folios = getManuscriptFolios(book.manuscriptKey);
-        for (const folio of folios) {
+        const folios = getManuscriptFolios(book.manuscriptKey ?? "bestiary");
+        folios.forEach((folio, i) => {
           const wrap = document.createElement("div");
           wrap.className = "folio-page";
-          wrap.dataset.pdfPage = String(folio.n);
-          wrap.innerHTML = `<div class="folio-manuscript">${folio.html}</div>`;
+          wrap.dataset.pdfPage = String(i + 1);
+          const paras = folio.body
+            .map((p, idx) => {
+              if (idx === 0 && folio.drop) return `<p><span class="drop">${folio.drop}</span>${p}</p>`;
+              return `<p>${p}</p>`;
+            })
+            .join("");
+          wrap.innerHTML = `<div class="folio-manuscript">${folio.kicker ? `<p class="kicker">${folio.kicker}</p>` : ""}${folio.heading ? `<h2>${folio.heading}</h2>` : ""}${paras}${folio.closing ? `<p class="closing">${folio.closing}</p>` : ""}</div>`;
           const layer = document.createElement("div");
           layer.className = "hl-page";
           wrap.append(layer);
           pages.push(wrap);
-        }
+        });
       } else {
         const buffer = await getPdfBuffer(book.id);
         if (cancelled) return;
