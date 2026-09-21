@@ -1,0 +1,11 @@
+.data
+attachments
+artifacts
+screenshots
+.tmp
+.git
+node_modules
+*.onnx
+*.glb
+AGENTS.md
+AGENTS.project.md
